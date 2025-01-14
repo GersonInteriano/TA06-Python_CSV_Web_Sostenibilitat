@@ -63,10 +63,14 @@ def revisar_capcaleres(fitxer, delimitador, primera_capcalera=None, segona_capca
                 return False, primera_capcalera, segona_capcalera
             if len(capcalera) > 1:
                 if segona_capcalera is None:
-                    segona_capcalera = capcalera[1]
+                    segona_capcalera = [type(value) for value in capcalera[1]]
                 if len(capcalera[1]) != len(segona_capcalera):
                     logging.error(f"La segunda fila de cabecera en el archivo {fitxer} no tiene el mismo formato")
                     return False, primera_capcalera, segona_capcalera
+                for i in range(len(capcalera[1])):
+                    if type(capcalera[1][i]) != segona_capcalera[i]:
+                        logging.error(f"Discrepancia en la segunda fila de cabecera en el archivo {fitxer}: {capcalera[1][i]} != {segona_capcalera[i]}")
+                        return False, primera_capcalera, segona_capcalera
             return True, primera_capcalera, segona_capcalera
     except Exception as e:
         logging.error(f"Error revisando cabeceras en el archivo {fitxer}: {e}")
