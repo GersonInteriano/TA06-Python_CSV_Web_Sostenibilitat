@@ -29,16 +29,6 @@ Procesa todos los archivos `.dat` en el directorio especificado:
 ### 7. Función `main`
 Define el directorio a procesar y ejecuta la validación de los archivos.
 
----
-
-## Ejecución
-Para ejecutar el script, asegúrate de que el directorio especificado existe y contiene archivos `.dat`. Luego, ejecuta el script:
-
-
-Los errores encontrados se registrarán en el archivo `error_log.log`.
-
-
-El segundo script que hay que hacer es uno que se asegure de que los datos introducidos son correctos. Para ello, haremos un script de validación de datos.
 
 ## Pas2
 
