@@ -11,14 +11,17 @@ Configurar un registro de errores que guarda los mensajes de error en el archivo
 Creamos una funcion que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el *endswith*.
 
 ### 3. Función `llegir_fitxer`
-Lee el contenido inicial del archivo para identificar el delimitador usado.
+Lee el contenido inicial del archivo para identificar el delimitador usado, abriendo los archivos en modo lectura y guardando el delimitador.
 
 ### 4. Función `hi_ha_comentaris`
-Comprueba si el archivo contiene comentarios que empiezan con `#`.
+Comprueba si el archivo contiene comentarios que empiezan con `#`, para eso utilizamos el *startswith*.
 
 ### 5. Función `revisar_capcaleres`
 Valida que la primera fila de encabezado sea idéntica en todos los archivos y que la segunda fila tenga el formato correcto.
-
+- Primero hacemos que valide que tenga dos filas de encabezo
+- Pasamos a que valide a primera fila, hacemos que las vaya comparando en todos los archivos a ver si son igual. 
+- Seguimos con la segunda fila, hacemos que mire y compare el formato de los valores para detectar si hay alguno diferente.
+  
 ### 6. Función `processar_fitxers`
 Procesa todos los archivos `.dat` en el directorio especificado:
 - Verifica la extensión del archivo.
@@ -28,7 +31,7 @@ Procesa todos los archivos `.dat` en el directorio especificado:
 
 ### 7. Función `main`
 Define el directorio a procesar y ejecuta la validación de los archivos.
-
+ 
 
 ## Pas2
 
