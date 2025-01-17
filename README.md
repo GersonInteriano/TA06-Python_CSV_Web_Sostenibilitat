@@ -1,14 +1,14 @@
 # Script de Validación de Datos
 	
-Este script valida archivos de datos con extensión `.dat` para asegurar que cumplen con el formato esperado.
+Script para validar archivos de datos y asegurarse que cumplen con el formato esperado y si los datos son correctos y no provocan ningun tpo de error.
 
 ## Pas 1
 
 ### 1. Configuración de Logging
-Se configura un registro de errores que guarda los mensajes en el archivo `error_log.log`.
+Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`.
 
 ### 2. Función `revisar_format`
-Creamos una funcion que verifica si el archivo tiene la extensión `.dat`.
+Creamos una funcion que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el <u>endswith</u>.
 
 ### 3. Función `llegir_fitxer`
 Lee el contenido inicial del archivo para identificar el delimitador usado.
