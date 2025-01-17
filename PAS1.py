@@ -40,6 +40,7 @@ def hi_ha_comentaris(fitxer, delimitador):
         logging.error(f"Error revisando comentarios en el archivo {fitxer}: {e}")
         return False
 
+
 def revisar_capcaleres(fitxer, delimitador, primera_capcalera=None, segona_capcalera=None):
     """
     Llegeix el fitxer i comprova que la primera fila de capçalera sigui idèntica en tots els fitxers
@@ -53,24 +54,41 @@ def revisar_capcaleres(fitxer, delimitador, primera_capcalera=None, segona_capca
                 capcalera.append(linia)
                 if len(capcalera) == 2:
                     break
-            if len(capcalera) < 1:
-                logging.error(f"El archivo {fitxer} no tiene filas de cabecera")
+
+            # Verificamos si tenemos al menos dos filas
+            if len(capcalera) < 2:
+                logging.error(f"El archivo {fitxer} no tiene suficientes filas de cabecera.")
                 return False, primera_capcalera, segona_capcalera
+
+            # Comprobamos la primera fila de cabecera
             if primera_capcalera is None:
                 primera_capcalera = capcalera[0]
             if capcalera[0] != primera_capcalera:
-                logging.error(f"La primera fila de cabecera en el archivo {fitxer} no es idéntica")
+                logging.error(f"La primera fila de cabecera en el archivo {fitxer} no es idéntica.")
                 return False, primera_capcalera, segona_capcalera
-            if len(capcalera) > 1:
-                if segona_capcalera is None:
-                    segona_capcalera = [type(value) for value in capcalera[1]]
-                if len(capcalera[1]) != len(segona_capcalera):
-                    logging.error(f"La segunda fila de cabecera en el archivo {fitxer} no tiene el mismo formato")
+
+            # Comprobamos la segunda fila de cabecera
+            if segona_capcalera is None:
+                # Almacenamos los tipos de la segunda fila basados en los valores
+                segona_capcalera = [str] * len(capcalera[1])  # Asumimos que todos deben ser cadenas
+
+            if len(capcalera[1]) != len(segona_capcalera):
+                logging.error(f"La segunda fila de cabecera en el archivo {fitxer} no tiene el mismo formato.")
+                return False, primera_capcalera, segona_capcalera
+
+            for i in range(len(capcalera[1])):
+                # Verificamos que el tipo del valor en la segunda fila sea str
+                if not isinstance(capcalera[1][i], segona_capcalera[i]):
+                    logging.error(f"Discrepancia en la segunda fila de cabecera en el archivo {fitxer}: "
+                                  f"{capcalera[1][i]} (type {type(capcalera[1][i])}) != {segona_capcalera[i]}")
                     return False, primera_capcalera, segona_capcalera
-                for i in range(len(capcalera[1])):
-                    if type(capcalera[1][i]) != segona_capcalera[i]:
-                        logging.error(f"Discrepancia en la segunda fila de cabecera en el archivo {fitxer}: {capcalera[1][i]} != {segona_capcalera[i]}")
-                        return False, primera_capcalera, segona_capcalera
+
+                # Verificamos que no haya espacios extras alrededor del valor
+                if capcalera[1][i] != capcalera[1][i].strip():
+                    logging.error(f"Valor con espacios extra en la segunda fila de cabecera en el archivo {fitxer}: "
+                                  f"{capcalera[1][i]}")
+                    return False, primera_capcalera, segona_capcalera
+
             return True, primera_capcalera, segona_capcalera
     except Exception as e:
         logging.error(f"Error revisando cabeceras en el archivo {fitxer}: {e}")
