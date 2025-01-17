@@ -35,12 +35,8 @@ def es_numero(valor):
 
 def validar_archivo(filepath):
     with open(filepath, 'r') as file:
-        # Leer solo las primeras 10 líneas del archivo
-        lines = []
-        for i, line in enumerate(file):
-            if i >= 10:  # Detener la lectura después de las 10 líneas
-                break
-            lines.append(line)
+        # Leer el archivo
+        lines = file.readlines()
 
         # Asegurarse de que haya al menos 3 líneas (2 encabezados + datos)
         if len(lines) < 3:
@@ -61,7 +57,7 @@ def validar_archivo(filepath):
             log_error(filepath, None, "No se pudo detectar un delimitador en el archivo.")
             return False
 
-        # Validar consistencia de columnas y contenido de las 8 líneas restantes
+        # Validar consistencia de columnas y contenido de las líneas restantes
         column_counts = []
         for i, line in enumerate(data_lines, start=3):  # Línea 3 en adelante (datos)
             actual_line_number = i  # Contar desde la primera línea del archivo
