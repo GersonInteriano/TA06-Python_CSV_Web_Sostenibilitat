@@ -28,30 +28,33 @@ def calcular_estadisticas(directorio):
     porcentaje_faltantes = (datos_faltantes / total_datos) * 100
     estadisticas = {
         anyo: {
-            'total': sum(v for v in valores if v != -999),
-            'media': np.mean([v for v in valores if v != -999]),
-            'desviacion_estandar': np.std([v for v in valores if v != -999]),
+            'total_mm': sum(v for v in valores if v != -999),
+            'total_m': sum(v for v in valores if v != -999) / 1000,
+            'media_mm': np.mean([v for v in valores if v != -999]),
+            'media_m': np.mean([v for v in valores if v != -999]) / 1000,
+            'desviacion_estandar_mm': np.std([v for v in valores if v != -999]),
+            'desviacion_estandar_m': np.std([v for v in valores if v != -999]) / 1000,
             'coeficiente_variacion': np.std([v for v in valores if v != -999]) / np.mean([v for v in valores if v != -999])
         }
         for anyo, valores in datos_anuales.items()
     }
     tendencia_cambio = {
-        anyo: estadisticas[anyo]['total'] - estadisticas[anyo-1]['total']
+        anyo: estadisticas[anyo]['total_mm'] - estadisticas[anyo-1]['total_mm']
         for anyo in sorted(estadisticas.keys())[1:]
     }
-    anyo_mas_plujoso = max(estadisticas, key=lambda x: estadisticas[x]['total'])
-    anyo_mas_sec = min(estadisticas, key=lambda x: estadisticas[x]['total'])
+    anyo_mas_plujoso = max(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
+    anyo_mas_sec = min(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
 
     # Mostrar resultados
     print(f"Porcentaje de datos faltantes: {porcentaje_faltantes:.2f}%")
     print("Estadísticas anuales:")
     for anyo, stats in estadisticas.items():
-        print(f"Año {anyo}: Total = {stats['total']}, Media = {stats['media']:.2f}, Desviación Estándar = {stats['desviacion_estandar']:.2f}, Coeficiente de Variación = {stats['coeficiente_variacion']:.2f}")
+        print(f"Año {anyo}: Total = {stats['total_mm']} mm ({stats['total_m']} m), Media = {stats['media_mm']:.2f} mm ({stats['media_m']:.2f} m), Desviación Estándar = {stats['desviacion_estandar_mm']:.2f} mm ({stats['desviacion_estandar_m']:.2f} m), Coeficiente de Variación = {stats['coeficiente_variacion']:.2f}")
     print("Tendencia de cambio anual:")
     for anyo, cambio in tendencia_cambio.items():
-        print(f"Año {anyo}: Cambio = {cambio}")
-    print(f"Año más plujoso: {anyo_mas_plujoso} con {estadisticas[anyo_mas_plujoso]['total']} mm")
-    print(f"Año más seco: {anyo_mas_sec} con {estadisticas[anyo_mas_sec]['total']} mm")
+        print(f"Año {anyo}: Cambio = {cambio} mm")
+    print(f"Any més plujós: {anyo_mas_plujoso} con {estadisticas[anyo_mas_plujoso]['total_mm']} mm ({estadisticas[anyo_mas_plujoso]['total_m']} m)")
+    print(f"Any més sec: {anyo_mas_sec} con {estadisticas[anyo_mas_sec]['total_mm']} mm ({estadisticas[anyo_mas_sec]['total_m']} m)")
 
 # Ejemplo de uso
 calcular_estadisticas('precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
