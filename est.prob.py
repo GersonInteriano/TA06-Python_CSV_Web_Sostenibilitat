@@ -15,29 +15,36 @@ def calcular_estadisticas(directorio):
                 for linea in lineas:
                     datos = linea.strip().split()
                     anyo = int(datos[1])
-                    valores = [int(x) for x in datos[3:]]
+                    valores = np.array([int(x) for x in datos[3:]])
 
                     if anyo not in datos_anuales:
                         datos_anuales[anyo] = []
 
                     datos_anuales[anyo].extend(valores)
-                    datos_faltantes += valores.count(-999)
+                    datos_faltantes += np.sum(valores == -999)
                     total_datos += len(valores)
 
     # Calcular estadísticas
     porcentaje_faltantes = (datos_faltantes / total_datos) * 100
-    estadisticas = {
-        anyo: {
-            'total_mm': sum(v for v in valores if v != -999),
-            'total_m': sum(v for v in valores if v != -999) / 1000,
-            'media_mm': np.mean([v for v in valores if v != -999]),
-            'media_m': np.mean([v for v in valores if v != -999]) / 1000,
-            'desviacion_estandar_mm': np.std([v for v in valores if v != -999]),
-            'desviacion_estandar_m': np.std([v for v in valores if v != -999]) / 1000,
-            'coeficiente_variacion': np.std([v for v in valores if v != -999]) / np.mean([v for v in valores if v != -999])
+    estadisticas = {}
+    for anyo, valores in datos_anuales.items():
+        valores = np.array(valores)
+        valores_validos = valores[valores != -999]
+        total_mm = np.sum(valores_validos)
+        media_mm = np.mean(valores_validos)
+        desviacion_estandar_mm = np.std(valores_validos)
+        coeficiente_variacion = desviacion_estandar_mm / media_mm
+
+        estadisticas[anyo] = {
+            'total_mm': total_mm,
+            'total_m': total_mm / 1000,
+            'media_mm': media_mm,
+            'media_m': media_mm / 1000,
+            'desviacion_estandar_mm': desviacion_estandar_mm,
+            'desviacion_estandar_m': desviacion_estandar_mm / 1000,
+            'coeficiente_variacion': coeficiente_variacion
         }
-        for anyo, valores in datos_anuales.items()
-    }
+
     tendencia_cambio = {
         anyo: estadisticas[anyo]['total_mm'] - estadisticas[anyo-1]['total_mm']
         for anyo in sorted(estadisticas.keys())[1:]
@@ -46,6 +53,8 @@ def calcular_estadisticas(directorio):
     anyo_mas_sec = min(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
 
     # Mostrar resultados
+    print(f"Total de datos faltantes: {datos_faltantes}")
+    print(f"Total de datos: {total_datos}")
     print(f"Porcentaje de datos faltantes: {porcentaje_faltantes:.2f}%")
     print("Estadísticas anuales:")
     for anyo, stats in estadisticas.items():
