@@ -1,5 +1,19 @@
 import os
 
+# Archivo para registrar errores
+LOG_FILE = "error_log.log"
+
+def log_error(filepath, line_number, message):
+    """Registra un mensaje de error en el archivo log."""
+    if line_number is None:
+        # Mensajes generales sin línea específica
+        log_message = f"{filepath}: {message}\n"
+    else:
+        # Mensajes asociados a una línea específica
+        log_message = f"{filepath} - Línea {line_number}: {message}\n"
+    with open(LOG_FILE, "a") as log_file:
+        log_file.write(log_message)
+
 def detectar_delimitador(line):
     # Detectar el delimitador más probable entre tabuladores y espacios
     if '\t' in line:
@@ -27,7 +41,7 @@ def validar_archivo(filepath):
 
         # Asegurarse de que haya al menos 3 líneas (2 encabezados + datos)
         if len(lines) < 3:
-            print(f"El archivo {filepath} tiene menos de 3 líneas, lo cual no es válido.")
+            log_error(filepath, None, "El archivo tiene menos de 3 líneas, lo cual no es válido.")
             return False
 
         # Ignorar las dos primeras líneas (encabezados)
@@ -41,12 +55,13 @@ def validar_archivo(filepath):
                 break
 
         if delimitador is None:
-            print(f"No se pudo detectar un delimitador en el archivo {filepath}.")
+            log_error(filepath, None, "No se pudo detectar un delimitador en el archivo.")
             return False
 
         # Validar consistencia de columnas y contenido de las 8 líneas restantes
         column_counts = []
         for i, line in enumerate(data_lines, start=3):  # Línea 3 en adelante (datos)
+            actual_line_number = i  # Contar desde la primera línea del archivo
             # Dividir la línea según el delimitador
             columns = line.strip().split(delimitador)
 
@@ -55,15 +70,16 @@ def validar_archivo(filepath):
 
             # Verificar que el número de columnas sea consistente
             if column_counts and num_columns != column_counts[0]:
-                print(
-                    f"El archivo {filepath} tiene un número de columnas inconsistente en la línea {i}: {line.strip()}")
+                log_error(filepath, actual_line_number, f"Número de columnas inconsistente: {line.strip()}")
                 return False
 
             # Validar que las columnas después de la primera contengan números válidos
-            for valor in columns[1:]:
+            for j, valor in enumerate(columns[1:], start=2):  # Comienza en la columna 2 (índice 1)
+                if valor.strip() == "":
+                    log_error(filepath, actual_line_number, f"Valor vacío en la columna {j}")
+                    return False
                 if not es_numero(valor):
-                    print(
-                        f"El archivo {filepath} tiene un valor no válido en la línea {i}: {valor}")
+                    log_error(filepath, actual_line_number, f"Valor no válido en la columna {j}: {valor}")
                     return False
 
             column_counts.append(num_columns)
@@ -72,15 +88,16 @@ def validar_archivo(filepath):
         return True
 
 def validar_archivos_en_carpeta(folder_path):
+    # Limpiar el archivo de log antes de comenzar
+    open(LOG_FILE, "w").close()
+
     # Iterar sobre todos los archivos en la carpeta
     for filename in os.listdir(folder_path):
         # Verificar que el archivo tenga la extensión .dat
         if filename.endswith('.dat'):
             filepath = os.path.join(folder_path, filename)
             if not validar_archivo(filepath):
-                print(f"El archivo {filename} tiene errores de formato.")
-            else:
-                print(f"El archivo {filename} es válido.")
+                log_error(filepath, None, "El archivo tiene errores de formato.")
 
 
 # Ruta de la carpeta que contiene los archivos .dat
