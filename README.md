@@ -35,19 +35,19 @@ Define el directorio a procesar y ejecuta la validación de los archivos.
 
 ## Pas2
 
-### 1. Función `detectar_delimitador`
+Script que valida si los datos de los archivos .dat son correctos y en caso de no serlos enviar el error a  a error_log.log
 
-En esta función he puesto los delimitadores que se usan en los archivos. Si estos no los tienen o tienen demasiados, estará mal:
+### 1. Configuración de Logging
+Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`.
 
-- **Tabulaciones** (`\t`)
-- **Espacios** (` `)
+### 2. Función `detectar_delimitador`
+Para saber si los datos son correctos necesitamos saber que delimitador tiene el archivo, para asi saber separar valores.
 
 ### 2. Función `es_numero`
-
 Verifica si un valor dado es un número. Esto lo logra intentando pasar un número a `float`. Si lo logra, significa que es un número; de lo contrario, es cualquier otro tipo de carácter.
+Esta es la parte mas importante ya que con esto sabemos si el valor tiene el formato correcto.
 
 ### 3. Función `validar_archivo`
-
 Valida un archivo de datos, verificando:
 
 - Que tenga el encabezado (las primeras dos líneas) y que haya al menos una fila de datos.
@@ -57,5 +57,4 @@ Valida un archivo de datos, verificando:
 Después de leer las primeras 10 líneas, deja de leer para que el código sea más óptimo.
 
 ### 4. Función `validar_archivos_en_carpeta`
-
-Lee todos los archivos de la carpeta que son `.dat`. Si no ha pasado alguna de las pruebas de validación, saldrá por pantalla que ese archivo no tiene el formato correcto. En caso de que pase todas las pruebas, saldrá que es válido.
+Lee todos los archivos de la carpeta que son `.dat`. Si no ha pasado alguna de las pruebas de validación, el error sera redirigido a error_log.log indicando el archivo que contiene el error junto a la linea y columna.
