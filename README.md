@@ -8,7 +8,7 @@ Script para validar archivos de datos y asegurarse que cumplen con el formato es
 Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`.
 
 ### 2. Función `revisar_format`
-Creamos una funcion que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el <u>endswith</u>.
+Creamos una funcion que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el *endswith*.
 
 ### 3. Función `llegir_fitxer`
 Lee el contenido inicial del archivo para identificar el delimitador usado.
