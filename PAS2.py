@@ -26,10 +26,21 @@ def detectar_delimitador(line):
     return None
 
 def es_numero(valor):
-    # Verifica si un valor es un número válido
+    """Verifica si un valor es un número válido, permitiendo tanto comas como puntos."""
     try:
+        # Reemplazar la coma por un punto antes de convertir a float
+        valor = valor.replace(',', '.')
         float(valor)
         return True
+    except ValueError:
+        return False
+
+def tiene_decimales(valor):
+    """Verifica si el número tiene decimales, considerando coma como separador decimal."""
+    try:
+        # Reemplazar la coma por un punto antes de convertir a float
+        numero = float(valor.replace(',', '.'))
+        return numero != int(numero)  # Si es distinto de su versión entera, tiene decimales
     except ValueError:
         return False
 
@@ -59,6 +70,7 @@ def validar_archivo(filepath):
 
         # Validar consistencia de columnas y contenido de las líneas restantes
         column_counts = []
+        meses_contados = 0
         for i, line in enumerate(data_lines, start=3):  # Línea 3 en adelante (datos)
             actual_line_number = i  # Contar desde la primera línea del archivo
             # Dividir la línea según el delimitador
@@ -81,7 +93,22 @@ def validar_archivo(filepath):
                     log_error(filepath, actual_line_number, f"Valor no válido en la columna {j}: {valor}")
                     return False
 
+                # Verificar si el valor tiene decimales
+                if tiene_decimales(valor):
+                    log_error(filepath, actual_line_number, f"Valor con decimales no permitido en la columna {j}: {valor}")
+                    return False
+
+            # Incrementar el contador de meses
+            meses_contados += 1
+            if meses_contados == 12:
+                meses_contados = 0  # Reiniciar el contador para el siguiente año
+
             column_counts.append(num_columns)
+
+        # Verificar que haya exactamente 12 meses de datos por año
+        if meses_contados != 0:
+            log_error(filepath, None, f"El archivo no tiene 12 meses completos para el año. Se encontraron {meses_contados} meses.")
+            return False
 
         # Si todas las verificaciones pasaron, el archivo es válido
         return True
