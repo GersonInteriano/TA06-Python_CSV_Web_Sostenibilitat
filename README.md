@@ -1,37 +1,49 @@
 # Script de Validación de Datos
-	
+
 Script para validar archivos de datos y asegurarse que cumplen con el formato esperado y si los datos son correctos y no provocan ningun tpo de error.
 
 ## Pas 1
 
 ### 1. Configuración de Logging
-Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`.
+Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`, utilizando la función logging facilitamos el trabajo.
 
 ### 2. Función `revisar_format`
-Creamos una funcion que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el *endswith*.
+Creamos una función que verifica si el archivo tiene la extensión `.dat`, para eso utilizamos el *endswith*, que mira solo el final del nombre, ignorando el resto.
 
 ### 3. Función `llegir_fitxer`
-Lee el contenido inicial del archivo para identificar el delimitador usado, abriendo los archivos en modo lectura y guardando el delimitador.
-
+Lee un archivo y detecta el delimitador utilizado en el archivo.
+- Primero abrimos el archivo en modo lectura.
+- Leemos las primeras 10 líneas del archivo para identificar el delimitador.
+  - Si no se encuentra un delimitador, se asume que es un espacio.
+    -   Si no se encuentra un delimitador, se asume que es un espacio.
+  - Si se encuentra un delimitador, se guarda en la variable `delimitador`.
+ 
 ### 4. Función `hi_ha_comentaris`
 Comprueba si el archivo contiene comentarios que empiezan con `#`, para eso utilizamos el *startswith*.
+- Si encuentra un comentario, lo ignora y sigue leyendo el archivo.
+- Si no encuentra un comentario, sigue leyendo el archivo.
+- Si encuentra un comentario después de haber leído los datos, se detiene la lectura.
 
 ### 5. Función `revisar_capcaleres`
-Valida que la primera fila de encabezado sea idéntica en todos los archivos y que la segunda fila tenga el formato correcto.
-- Primero hacemos que valide que tenga dos filas de encabezo
-- Pasamos a que valide a primera fila, hacemos que las vaya comparando en todos los archivos a ver si son igual. 
-- Seguimos con la segunda fila, hacemos que mire y compare el formato de los valores para detectar si hay alguno diferente.
-  
+Válida que la primera fila de encabezado sea idéntica en todos los archivos y que la segunda fila tenga el formato correcto.
+- Para esto, primero leemos las primeras dos líneas del archivo.
+- Luego, comparamos la primera fila de encabezado con la primera fila de encabezado de los otros archivos.
+- Comparamos la segunda fila de encabezado con el formato esperado.
+- Si no se cumple alguna de las condiciones, se muestra un mensaje de error.
+- Si se cumple, se muestra un mensaje de éxito.
+ 
 ### 6. Función `processar_fitxers`
 Procesa todos los archivos `.dat` en el directorio especificado:
+- Lee los archivos.
 - Verifica la extensión del archivo.
 - Detecta el delimitador (coma, tabulación o espacio).
 - Revisa si hay comentarios.
 - Comprueba que los encabezados sean consistentes.
 
 ### 7. Función `main`
-Define el directorio a procesar y ejecuta la validación de los archivos.
+Función principal que ejecuta el script.
  
+---
 
 ## Pas2
 
