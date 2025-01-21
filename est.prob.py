@@ -53,15 +53,20 @@ def calcular_estadisticas(directorio):
     anyo_mas_sec = min(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
 
     # Mostrar resultados
+    print("Estadísticas generales:")
+    print("----------------------------------------")
     print(f"Total de datos faltantes: {datos_faltantes}")
     print(f"Total de datos: {total_datos}")
     print(f"Porcentaje de datos faltantes: {porcentaje_faltantes:.2f}%")
     print("Estadísticas anuales:")
+    print("---------------------")
     for anyo, stats in estadisticas.items():
         print(f"Año {anyo}: Total = {stats['total_mm']} mm ({stats['total_m']} m), Media = {stats['media_mm']:.2f} mm ({stats['media_m']:.2f} m), Desviación Estándar = {stats['desviacion_estandar_mm']:.2f} mm ({stats['desviacion_estandar_m']:.2f} m), Coeficiente de Variación = {stats['coeficiente_variacion']:.2f}")
     print("Tendencia de cambio anual:")
+    print("---------------------------")
     for anyo, cambio in tendencia_cambio.items():
         print(f"Año {anyo}: Cambio = {cambio} mm")
+    print("---------------------------------------")
     print(f"Any més plujós: {anyo_mas_plujoso} con {estadisticas[anyo_mas_plujoso]['total_mm']} mm ({estadisticas[anyo_mas_plujoso]['total_m']} m)")
     print(f"Any més sec: {anyo_mas_sec} con {estadisticas[anyo_mas_sec]['total_mm']} mm ({estadisticas[anyo_mas_sec]['total_m']} m)")
 
