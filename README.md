@@ -2,7 +2,7 @@
 
 Script para validar archivos de datos y asegurarse que cumplen con el formato esperado y si los datos son correctos y no provocan ningun tpo de error.
 
-## Pas 1
+## Paso 1
 
 ### 1. Configuración de Logging
 Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`, utilizando la función logging facilitamos el trabajo.
@@ -45,7 +45,7 @@ Función principal que ejecuta el script.
  
 ---
 
-## Pas 2
+## Paso 2
 
 Script que valida si los datos de los archivos .dat son correctos y en caso de no serlos enviar el error a  a error_log.log
 
@@ -116,7 +116,7 @@ Los errores se registran en `error_log.log` con información detallada:
 
 ---
 
-## Pas 3
+## Paso 3
 ## Estadistica 
 Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a la carpeta.
 
@@ -124,7 +124,7 @@ Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a 
 
 Script para validar archivos de datos y asegurarse que cumplen con el formato esperado y si los datos son correctos y no provocan ningun tipo de error.
 
-## Pas 1
+## Paso 1
 
 ### 1. Configuración de Logging
 Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`, utilizando la función logging facilitamos el trabajo.
@@ -166,7 +166,7 @@ Función principal que ejecuta el script.
 
 ---
 
-## Pas 2
+## Paso 2
 
 Script que valida si los datos de los archivos `.dat` son correctos y en caso de no serlos enviar el error a `error_log.log`.
 
@@ -193,7 +193,7 @@ Lee todos los archivos de la carpeta que son `.dat`. Si no ha pasado alguna de l
 
 ---
 
-## Pas 3
+## Paso 3
 ## Estadística
 Aquesta part del codi es per a fer una estadística dels arxius `.dat` que tenim a la carpeta.
 
