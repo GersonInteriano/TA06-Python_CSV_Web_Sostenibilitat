@@ -49,27 +49,72 @@ Función principal que ejecuta el script.
 
 Script que valida si los datos de los archivos .dat son correctos y en caso de no serlos enviar el error a  a error_log.log
 
+
 ### 1. Configuración de Logging
 Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`.
+
+Esta configuración incluye:
+- Fecha y hora del error.
+- Nombre del archivo y línea específica donde ocurrió el problema.
+- Descripción detallada del error.
+
+El formato de los registros está definido como:  
+`%(asctime)s - %(levelname)s - %(message)s`
 
 ### 2. Función `detectar_delimitador`
 Para saber si los datos son correctos necesitamos saber que delimitador tiene el archivo, para asi saber separar valores.
 
-### 2. Función `es_numero`
+Detecta el delimitador predominante en las líneas de datos. Los delimitadores posibles son:
+- **Tabulador (`\t`)**.
+- **Espacio (` `)**.
+
+Si no se detecta ningún delimitador, el archivo se considera inválido.
+
+### 3. Función `es_numero`
 Verifica si un valor dado es un número. Esto lo logra intentando pasar un número a `float`. Si lo logra, significa que es un número; de lo contrario, es cualquier otro tipo de carácter.
 Esta es la parte mas importante ya que con esto sabemos si el valor tiene el formato correcto.
 
-### 3. Función `validar_archivo`
+### 4. Función `tiene_decimales`
+Verifica si un valor contiene decimales:
+- Reemplaza comas por puntos para realizar la validación.
+- Compara el número con su versión entera. Si son diferentes, tiene decimales.
+
+### 5. Función `validar_archivo`
 Valida un archivo de datos, verificando:
 
-- Que tenga el encabezado (las primeras dos líneas) y que haya al menos una fila de datos.
-- La consistencia en el número de columnas.
-- Que los valores en las columnas sean números, excepto al principio, ya que tiene una letra.
+1. **Estructura del Archivo**:
+   - Comprueba que el archivo tenga al menos tres líneas (dos encabezados y datos).
+   - Si no se cumple, registra un error.
 
-Después de leer las primeras 10 líneas, deja de leer para que el código sea más óptimo.
+2. **Detección del Delimitador**:
+   - Busca tabuladores o espacios como delimitador.
+   - Si no encuentra ninguno, el archivo es inválido.
 
-### 4. Función `validar_archivos_en_carpeta`
-Lee todos los archivos de la carpeta que son `.dat`. Si no ha pasado alguna de las pruebas de validación, el error sera redirigido a error_log.log indicando el archivo que contiene el error junto a la linea y columna.
+3. **Validación de Datos**:
+   - Asegura consistencia en el número de columnas.
+   - Valida que las columnas (excepto la primera) contengan números válidos.
+   - Registra errores por valores vacíos o no numéricos.
+
+4. **Validación Anual**:
+   - Verifica que haya exactamente 12 meses de datos por año.
+   - Si el ciclo no es completo, registra un error.
+
+### 6. Función `validar_archivos_en_carpeta`
+Lee todos los archivos de la carpeta que son `.dat`. 
+Si no ha pasado alguna de las pruebas de validación, el error sera redirigido a error_log.log indicando el archivo que contiene el error junto a la linea y columna.
+
+- Llama a `validar_archivo` para realizar las comprobaciones.
+- Registra un error general si el archivo contiene errores de formato.
+- Registra errores específicos si los datos no son válidos.
+- Muestra un mensaje de éxito si el archivo es válido.
+
+### 7. Registro de Errores
+Los errores se registran en `error_log.log` con información detallada:
+- Nombre del archivo.
+- Línea y columna específica donde ocurrió el problema.
+- Descripción del error.
+
+---
 
 ## Pas 3
 ## Estadistica 
