@@ -1,7 +1,17 @@
 import os
 import numpy as np
+import logging
+
+LOG_FILE = "error_log.log"
+
+logging.basicConfig(filename=LOG_FILE, level=logging.ERROR,
+                    format='%(asctime)s - %(levelname)s - %(message)s', filemode='a')
 
 def calcular_estadisticas(directorio):
+    if not os.path.exists(directorio):
+        logging.error(f"El directorio {directorio} no existe. El programa ha finalizado.")
+        return
+
     datos_anuales = {}
     datos_faltantes = 0
     total_datos = 0
@@ -10,7 +20,7 @@ def calcular_estadisticas(directorio):
         ruta_archivo = os.path.join(directorio, archivo)
         if os.path.isfile(ruta_archivo):
             with open(ruta_archivo, 'r', encoding='utf-8') as fitxer:
-                lineas = fitxer.readlines()[2:]  # Ignorar las dos primeras líneas
+                lineas = fitxer.readlines()[2:]
 
                 for linea in lineas:
                     datos = linea.strip().split()
@@ -24,7 +34,6 @@ def calcular_estadisticas(directorio):
                     datos_faltantes += np.sum(valores == -999)
                     total_datos += len(valores)
 
-    # Calcular estadísticas
     porcentaje_faltantes = (datos_faltantes / total_datos) * 100
     estadisticas = {}
     for anyo, valores in datos_anuales.items():
@@ -52,7 +61,6 @@ def calcular_estadisticas(directorio):
     anyo_mas_plujoso = max(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
     anyo_mas_sec = min(estadisticas, key=lambda x: estadisticas[x]['total_mm'])
 
-    # Mostrar resultados
     print("ESTADÍSTICAS GENERALES:")
     print("----------------------------------------")
     print(f"Total de datos faltantes: {datos_faltantes}")
@@ -73,5 +81,4 @@ def calcular_estadisticas(directorio):
     print(f"Any més sec: {anyo_mas_sec} con {estadisticas[anyo_mas_sec]['total_mm']} mm ({estadisticas[anyo_mas_sec]['total_m']} m)")
     print("----------------------------------------------------------")
 
-# Ejemplo de uso
-calcular_estadisticas('precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
+calcular_estadisticas('./precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
