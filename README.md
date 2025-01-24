@@ -149,3 +149,7 @@ Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a 
 
 ### 10. Ejemplo de Uso
 - `calcular_estadisticas('precip.MIROC5.RCP60.2006-2100.SDSM_REJ')`: Llama a la función `calcular_estadisticas` con la ruta del directorio que contiene los archivos de datos.
+
+
+## Ejecución del programa
+Se ejecuta llamando el archivo main.py que llama a las funciones de validación y estadísticas.
