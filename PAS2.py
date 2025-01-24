@@ -90,32 +90,9 @@ def validar_archivo(filepath):
 
         return True
 
-def verificar_primera_columna(directorio):
-    primera_columna = None
-    for archivo in os.listdir(directorio):
-        ruta_archivo = os.path.join(directorio, archivo)
-        if os.path.isfile(ruta_archivo):
-            try:
-                with open(ruta_archivo, 'r', encoding='utf-8') as fitxer:
-                    lineas = fitxer.readlines()[1:]  # Ignorar la primera línea
-                    for linea in lineas:
-                        columna = linea.strip().split()[0]
-                        if primera_columna is None:
-                            primera_columna = columna
-                        elif columna != primera_columna:
-                            return False
-            except Exception as e:
-                logging.error(f"Error processing file {ruta_archivo}: {e}")
-                return False
-    return True
-
 def validar_archivos_en_carpeta(folder_path):
     if not os.path.exists(folder_path):
         log_error(folder_path, None, "El directorio no existe. El programa ha finalizado.")
-        return
-
-    if not verificar_primera_columna(folder_path):
-        log_error(folder_path, None, "La verificación de la primera columna falló. ")
         return
 
     for filename in os.listdir(folder_path):
@@ -124,5 +101,5 @@ def validar_archivos_en_carpeta(folder_path):
             if not validar_archivo(filepath):
                 log_error(filepath, None, "El archivo tiene errores de formato.")
 
-carpeta = os.path.join(os.path.dirname(__file__), 'precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
+carpeta = os.path.join(os.path.dirname(__file__), 'hola')
 validar_archivos_en_carpeta(carpeta)
