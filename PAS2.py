@@ -1,5 +1,6 @@
 import os
 import logging
+import re
 
 LOG_FILE = "error_log.log"
 
@@ -54,29 +55,38 @@ def validar_archivo(filepath):
             log_error(filepath, None, "No se pudo detectar un delimitador en el archivo.")
             return False
 
+        # Extrae el código "P*" de la segunda fila
+        codigo = re.search(r'P\d+', lines[1]).group()
+
         column_counts = []
         meses_contados = 0
+        errores_encontrados = 0
         for i, line in enumerate(data_lines, start=3):
             actual_line_number = i
             columns = line.strip().split(delimitador)
+
+            # Compara el código con el del resto de las filas
+            if not columns[0].startswith(codigo):
+                log_error(filepath, actual_line_number, f"Código no coincide: {columns[0]}")
+                errores_encontrados += 1
 
             num_columns = len(columns)
 
             if column_counts and num_columns != column_counts[0]:
                 log_error(filepath, actual_line_number, f"Número de columnas inconsistente: {line.strip()}")
-                return False
+                errores_encontrados += 1
 
             for j, valor in enumerate(columns[1:], start=2):
                 if valor.strip() == "":
                     log_error(filepath, actual_line_number, f"Valor vacío en la columna {j}")
-                    return False
+                    errores_encontrados += 1
                 if not es_numero(valor):
                     log_error(filepath, actual_line_number, f"Valor no válido en la columna {j}: {valor}")
-                    return False
+                    errores_encontrados += 1
 
                 if tiene_decimales(valor):
                     log_error(filepath, actual_line_number, f"Valor con decimales no permitido en la columna {j}: {valor}")
-                    return False
+                    errores_encontrados += 1
 
             meses_contados += 1
             if meses_contados == 12:
@@ -84,38 +94,14 @@ def validar_archivo(filepath):
 
             column_counts.append(num_columns)
 
-        if meses_contados != 0:
-            log_error(filepath, None, f"El archivo no tiene 12 meses completos para el año. Se encontraron {meses_contados} meses.")
-            return False
+        if errores_encontrados > 0:
+            log_error(filepath, None, f"Se encontraron {errores_encontrados} errores en el archivo.")
 
-        return True
-
-def verificar_primera_columna(directorio):
-    primera_columna = None
-    for archivo in os.listdir(directorio):
-        ruta_archivo = os.path.join(directorio, archivo)
-        if os.path.isfile(ruta_archivo):
-            try:
-                with open(ruta_archivo, 'r', encoding='utf-8') as fitxer:
-                    lineas = fitxer.readlines()[1:]  # Ignorar la primera línea
-                    for linea in lineas:
-                        columna = linea.strip().split()[0]
-                        if primera_columna is None:
-                            primera_columna = columna
-                        elif columna != primera_columna:
-                            return False
-            except Exception as e:
-                logging.error(f"Error processing file {ruta_archivo}: {e}")
-                return False
     return True
 
 def validar_archivos_en_carpeta(folder_path):
     if not os.path.exists(folder_path):
         log_error(folder_path, None, "El directorio no existe. El programa ha finalizado.")
-        return
-
-    if not verificar_primera_columna(folder_path):
-        log_error(folder_path, None, "La verificación de la primera columna falló. ")
         return
 
     for filename in os.listdir(folder_path):
