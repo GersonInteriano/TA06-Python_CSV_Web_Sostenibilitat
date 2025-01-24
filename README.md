@@ -69,7 +69,7 @@ Valida un archivo de datos, verificando:
 
 3. **Validación de Datos**:
    - Asegura consistencia en el número de columnas.
-   - Valida que las columnas (excepto la primera) contengan números válidos.
+   - Valida que las columnas contengan números válidos incluso comprueba si el PX tiene el mismo numero en cada fila.
    - Registra errores por valores vacíos o no numéricos.
 
 4. **Validación Anual**:
