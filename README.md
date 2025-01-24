@@ -60,7 +60,7 @@ Verifica si un valor contiene decimales:
 Valida un archivo de datos, verificando:
 
 1. **Estructura del Archivo**:
-   - Comprueba que el archivo tenga al menos tres líneas (dos encabezados y datos).
+   - Comprueba que el archivo tenga al menos tres líneas (dos del encabezados y al menos una de datos).
    - Si no se cumple, registra un error.
 
 2. **Detección del Delimitador**:
