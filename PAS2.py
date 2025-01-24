@@ -101,5 +101,5 @@ def validar_archivos_en_carpeta(folder_path):
             if not validar_archivo(filepath):
                 log_error(filepath, None, "El archivo tiene errores de formato.")
 
-carpeta = "./precip.MIROC5.RCP60.2006-2100.SDSM_REJ"
+carpeta = os.path.join(os.path.dirname(__file__), 'precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
 validar_archivos_en_carpeta(carpeta)

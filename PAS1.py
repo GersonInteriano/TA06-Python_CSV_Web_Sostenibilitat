@@ -94,7 +94,7 @@ def processar_fitxers(directori):
             capcalera_correcta, primera_capcalera, segona_capcalera = revisar_capcaleres(fitxer_complet, delimitador, primera_capcalera, segona_capcalera)
 
 def main():
-    directori = './precip.MIROC5.RCP60.2006-2100.SDSM_REJ'
+    directori = os.path.join(os.path.dirname(__file__), 'precip.MIROC5.RCP60.2006-2100.SDSM_REJ')
     processar_fitxers(directori)
 
 if __name__ == "__main__":
