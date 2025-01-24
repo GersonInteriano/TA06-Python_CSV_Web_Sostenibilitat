@@ -2,7 +2,7 @@
 
 Script para validar archivos de datos y asegurarse que cumplen con el formato esperado y si los datos son correctos.
 
-## 1
+## 1 Validació format arxius i capçaleres
 
 ### 1.1 Configuración de Logging
 Configurar un registro de errores que guarda los mensajes de error en el archivo `error_log.log`, utilizando la función logging facilitamos el trabajo.
@@ -45,7 +45,7 @@ Procesa todos los archivos `.dat` en el directorio especificado:
 
 ---
 
-## 2
+## 2 Validació de dades
 
 ### 2.1 Función `es_numero`
 Verifica si un valor dado es un número. Esto lo logra intentando pasar un número a `float`. Si lo logra, significa que es un número; de lo contrario, es cualquier otro tipo de carácter.
@@ -87,8 +87,7 @@ Si no ha pasado alguna de las pruebas de validación, el error sera redirigido a
 
 ---
 
-## 3. 
-## Estadistica 
+## 3. Estadistica 
 Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a la carpeta.
 
 ### 3.1 Importación de Módulos
