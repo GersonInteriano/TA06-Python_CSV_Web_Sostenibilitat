@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #DFF4F2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #7fffd4;
+    color: black;
+    height: 80px;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+pre {
+    background-color: #B0E57C;
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: black;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+img {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.resultado {
+    flex-basis: 32%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.resultado:hover {
+    transform: translateY(-5px);
+}
+
+#csvContent {
+    background-color: #6C9A8B;
+    padding: 20px;
+    margin-top: 20px;
+    overflow: auto;
+    display: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #7fffd4;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: black;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+}

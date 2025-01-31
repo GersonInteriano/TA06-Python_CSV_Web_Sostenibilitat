@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados Estadísticos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #csvContent {
+            background-color: #b0e57c; /* Verde pastel */
+            padding: 20px;
+            margin-top: 20px;
+            overflow: auto;
+            display: none; /* Initially hidden */
+        }
+    </style>
+    <script>
+        function toggleCsv() {
+            const csvContent = document.getElementById('csvContent');
+            const csvLink = document.getElementById('csvLink');
+            if (csvContent.style.display === 'none') {
+                fetch('csv/csvview.html.csv')
+                    .then(response => response.text())
+                    .then(csvText => {
+                        const rows = csvText.split('\n').map(row => row.split(','));
+                        let table = '<table border="1">';
+                        rows.forEach(row => {
+                            table += '<tr>';
+                            row.forEach(cell => {
+                                table += `<td>${cell}</td>`;
+                            });
+                            table += '</tr>';
+                        });
+                        table += '</table>';
+                        csvContent.innerHTML = table;
+                        csvContent.style.display = 'block';
+                        csvLink.textContent = 'Cerrar CSV';
+                    });
+            } else {
+                csvContent.style.display = 'none';
+                csvLink.textContent = 'Ver CSV';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Resultados Estadísticos</h1>
+    </header>
+    <main>
+        <section id="resumenes">
+            <h2>Resúmenes Estadísticos</h2>
+            <a href="#" id="csvLink" onclick="toggleCsv()">Ver CSV</a>
+            <div id="csvContent"></div>
+        </section>
+        <section id="resultados">
+            <h2>Resultados</h2>
+            <img src="imagenes/resultado1.png" alt="Resultado 1">
+            <img src="imagenes/resultado2.png" alt="Resultado 2">
+            <img src="imagenes/resultado3.png" alt="Resultado 3">
+        </section>
+    </main>
+</body>
+</html>
