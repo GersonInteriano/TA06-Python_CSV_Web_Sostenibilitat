@@ -18,7 +18,7 @@
             const csvContent = document.getElementById('csvContent');
             const csvLink = document.getElementById('csvLink');
             if (csvContent.style.display === 'none') {
-                fetch('../csv/csvview.html.csv')
+                fetch('../csv/summary.csv')
                     .then(response => response.text())
                     .then(csvText => {
                         const rows = csvText.split('\n').map(row => row.split(','));
