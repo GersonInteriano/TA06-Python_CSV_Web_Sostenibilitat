@@ -18,7 +18,7 @@
             const csvContent = document.getElementById('csvContent');
             const csvLink = document.getElementById('csvLink');
             if (csvContent.style.display === 'none') {
-                fetch('E04/Web/csv/summary.csv')
+                fetch('E03/estadisticos_anuales.csv')
                     .then(response => response.text())
                     .then(csvText => {
                         const rows = csvText.split('\n').map(row => row.split(','));
@@ -57,9 +57,11 @@
         </section>
         <section id="resultados">
             <h2>Resultados</h2>
-            <img src="E04/Web/imagenes/resultado1.png" alt="Resultado 1">
-            <img src="E04/Web/imagenes/resultado2.png" alt="Resultado 2">
-            <img src="E04/Web/imagenes/resultado3.png" alt="Resultado 3">
+            <img src="E03/coeficiente_variacion_anual.png" alt="Resultado 1">
+            <img src="E03/comparacion_lluvioso_seco.png" alt="Resultado 2">
+            <img src="E03/desviacion_estandar_anual.png" alt="Resultado 3">
+            <img src="E03/media_precipitacion_anual.png" alt="Resultado 4">
+            <img src="E03/total_precipitacion_anual.png" alt="Resultado 5">
         </section>
     </main>
 </body>
