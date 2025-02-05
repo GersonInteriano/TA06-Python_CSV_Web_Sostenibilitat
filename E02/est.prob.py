@@ -15,7 +15,7 @@ directorio = r"../E01/precip.MIROC5.RCP60.2006-2100.SDSM_REJ"
 # directorio = "/home/usuario/carpeta"
 
 # Nombre del archivo CSV de salida
-csv_salida = "estadisticos_anuales.csv"
+csv_salida = "../E03/estadisticos_anuales.csv"
 
 # Construir la ruta para buscar archivos .dat en el directorio
 ruta_archivos = os.path.join(directorio, "*.dat")
@@ -120,7 +120,7 @@ año_mas_seco = min(estadisticos_por_año.items(), key=lambda item: item[1]['tot
 # -------------------------------------------------------------------
 # Paso 5. Exportar los resultados a un archivo CSV y mostrarlos por pantalla
 # -------------------------------------------------------------------
-csv_ruta = os.path.join(directorio, csv_salida)
+csv_ruta = os.path.join(csv_salida)
 with open(csv_ruta, mode="w", newline="", encoding="utf-8") as csvfile:
     writer = csv.writer(csvfile)
     # Escribir el encabezado del CSV
@@ -213,7 +213,7 @@ plt.ylabel("Total Precipitación (l/m²)", fontsize=12, labelpad=10)
 plt.title("Total Precipitación Anual", fontsize=14, pad=20)
 
 # Guardar con alta resolución
-grafico_total = os.path.join(directorio, "total_precipitacion_anual.png")
+grafico_total = os.path.join("../E03/total_precipitacion_anual.png")
 plt.savefig(grafico_total, dpi=300, bbox_inches='tight')
 plt.close()
 
@@ -228,7 +228,7 @@ plt.xlabel("Año")
 plt.ylabel("Media Precipitación (l/m²)")
 plt.title("Media Precipitación Anual y Tendencia")
 plt.legend()
-grafico_media = os.path.join(directorio, "media_precipitacion_anual.png")
+grafico_media = os.path.join("../E03/media_precipitacion_anual.png")
 plt.savefig(grafico_media, dpi=300, bbox_inches='tight')
 plt.close()
 
@@ -255,7 +255,7 @@ plt.ylabel("Desviación Estándar (l/m²)", fontsize=12, labelpad=10)
 plt.title("Desviación Estándar de Precipitación Anual", fontsize=14, pad=20)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-grafico_desviacion = os.path.join(directorio, "desviacion_estandar_anual.png")
+grafico_desviacion = os.path.join("../E03/desviacion_estandar_anual.png")
 plt.savefig(grafico_desviacion, dpi=300, bbox_inches='tight')
 plt.close()
 
@@ -283,7 +283,7 @@ plt.ylabel("Coeficiente de Variación (%)", fontsize=12, labelpad=10)
 plt.title("Coeficiente de Variación de Precipitación Anual", fontsize=14, pad=20)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-grafico_cv = os.path.join(directorio, "coeficiente_variacion_anual.png")
+grafico_cv = os.path.join("../E03/coeficiente_variacion_anual.png")
 plt.savefig(grafico_cv, dpi=300, bbox_inches='tight')
 plt.close()
 
@@ -305,7 +305,7 @@ plt.title("Comparación: Año más lluvioso vs. Año más seco (Total de precipi
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 
-grafico_comparacion = os.path.join(directorio, "comparacion_lluvioso_seco.png")
+grafico_comparacion = os.path.join("../E03/comparacion_lluvioso_seco.png")
 plt.savefig(grafico_comparacion, dpi=300, bbox_inches='tight')
 plt.close()
 
