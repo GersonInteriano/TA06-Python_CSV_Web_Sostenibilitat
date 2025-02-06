@@ -161,25 +161,30 @@ Este apartado describe cómo se generan y exportan los gráficos estadísticos e
 - Se crea un gráfico de barras que muestra el total de precipitación anual.
 - Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
 - Se guarda el gráfico en alta resolución.
+![Totales Anuales](E03/total_precipitacion_anual.png)
 
 #### Gráfico 2: Media Anual con Barras de Error y Línea de Tendencia
 - Se crea un gráfico de puntos con barras de error que muestra la media anual de precipitación y su desviación estándar.
 - Se añade una línea de tendencia calculada mediante regresión lineal.
 - Se guarda el gráfico en alta resolución.
+![Media Anual](E03/media_precipitacion_anual.png)
 
 #### Gráfico 3: Desviación Estándar Anual
 - Se crea un gráfico de barras que muestra la desviación estándar anual de la precipitación.
 - Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
 - Se guarda el gráfico en alta resolución.
+![Media Anual](E03/desviacion_estandar_anual.png)
 
 #### Gráfico 4: Coeficiente de Variación Anual
 - Se crea un gráfico de barras que muestra el coeficiente de variación anual de la precipitación.
 - Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
 - Se guarda el gráfico en alta resolución.
+![Media Anual](E03/coeficiente_variacion_anual.png)
 
 #### Gráfico 5: Comparación entre el Año más Lluvioso y el Año más Seco
 - Se crea un gráfico de barras que compara el total de precipitación entre el año más lluvioso y el año más seco.
 - Se guarda el gráfico en alta resolución.
+![Media Anual](E03/comparacion_lluvioso_seco.png)
 
 Los gráficos se exportan a la carpeta `../E03` con nombres descriptivos.
 
