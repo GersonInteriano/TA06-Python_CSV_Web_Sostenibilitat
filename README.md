@@ -190,5 +190,41 @@ Los gráficos se exportan a la carpeta `../E03` con nombres descriptivos.
 
 ---
 
+### 4. Página Web de Resultados Estadísticos
+
+Esta página web presenta datos climatológicos en formato CSV y muestra gráficos estadísticos relacionados con precipitaciones anuales.
+
+### 4.1 Visualización del Archivo CSV
+
+La página permite visualizar un archivo CSV que contiene datos climatológicos anuales.
+
+#### Funcionalidad:
+- Se proporciona un enlace para alternar la visualización del CSV.
+- Al hacer clic en "Ver CSV", se carga el contenido del archivo `estadisticos_anuales.csv`.
+- Los datos se muestran en una tabla HTML generada dinámicamente.
+- Si se vuelve a hacer clic, la tabla se oculta.
+
+### 4.2. Visualización de Gráficos Estadísticos
+
+La página muestra imágenes que representan diferentes estadísticas sobre la precipitación anual ya mencionados anteriormente.
+
+### 4.3 Estructura de Archivos
+
+La página se compone de los siguientes archivos y carpetas:
+
+E04/Web/ ├── styles.css # Estilos CSS de la página E03/ ├── estadisticos_anuales.csv # Archivo CSV con datos ├── coeficiente_variacion_anual.png ├── comparacion_lluvioso_seco.png ├── desviacion_estandar_anual.png ├── media_precipitacion_anual.png ├── total_precipitacion_anual.png
+
+### 5. Resumen de Funcionamiento
+
+1. La página carga y muestra un título y una sección de "Resúmenes Estadísticos".
+2. Un enlace permite alternar la visualización de los datos CSV en una tabla.
+3. Se muestran imágenes con estadísticas de precipitación anual.
+4. Los estilos y scripts están organizados en archivos externos.
+
+Esta estructura permite visualizar de manera sencilla los datos climáticos y su análisis gráfico.
+
+---
+---
+
 ## Ejecución del programa
 Se ejecuta llamando el archivo main.py que llama a las funciones de validación y estadísticas.
