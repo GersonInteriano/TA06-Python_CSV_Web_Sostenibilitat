@@ -87,12 +87,13 @@ Si no ha pasado alguna de las pruebas de validación, el error sera redirigido a
 
 ---
 
-## 3. Estadistica 
-Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a la carpeta.
+## 3. Estadística y Resultados
+
+Este script analiza archivos de datos meteorológicos en formato `.dat` para calcular estadísticas anuales de precipitación por estación meteorológica. Los datos se extraen de múltiples archivos, se procesan y se exportan a un archivo CSV, además de mostrar un resumen en pantalla.
 
 ### 3.1 Importación de Módulos
 - `import os`: Importa el módulo `os` para interactuar con el sistema de archivos.
-- `import pandas as pd`: Importa el módulo `pandas` como `pd` para manipulación y análisis de datos.
+- `matplotlib.pyplot`: Visualiza el resultado.
 - `import numpy as np`: Importa el módulo `numpy` como `np` para operaciones numéricas.
 
 ### 3.2 Función `calcular_estadisticas`
@@ -149,6 +150,38 @@ Aquesta part del codi es per a fer una estadistica dels arxius .dat que tenim a 
 
 ### 10. Ejemplo de Uso
 - `calcular_estadisticas('precip.MIROC5.RCP60.2006-2100.SDSM_REJ')`: Llama a la función `calcular_estadisticas` con la ruta del directorio que contiene los archivos de datos.
+
+---
+
+### 3.10 Generación y Exportación de Gráficos Estadísticos
+
+Este apartado describe cómo se generan y exportan los gráficos estadísticos en formato PNG.
+
+#### Gráfico 1: Totales Anuales de Precipitación
+- Se crea un gráfico de barras que muestra el total de precipitación anual.
+- Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
+- Se guarda el gráfico en alta resolución.
+
+#### Gráfico 2: Media Anual con Barras de Error y Línea de Tendencia
+- Se crea un gráfico de puntos con barras de error que muestra la media anual de precipitación y su desviación estándar.
+- Se añade una línea de tendencia calculada mediante regresión lineal.
+- Se guarda el gráfico en alta resolución.
+
+#### Gráfico 3: Desviación Estándar Anual
+- Se crea un gráfico de barras que muestra la desviación estándar anual de la precipitación.
+- Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
+- Se guarda el gráfico en alta resolución.
+
+#### Gráfico 4: Coeficiente de Variación Anual
+- Se crea un gráfico de barras que muestra el coeficiente de variación anual de la precipitación.
+- Se ajustan las etiquetas del eje X para mostrar los años de manera legible.
+- Se guarda el gráfico en alta resolución.
+
+#### Gráfico 5: Comparación entre el Año más Lluvioso y el Año más Seco
+- Se crea un gráfico de barras que compara el total de precipitación entre el año más lluvioso y el año más seco.
+- Se guarda el gráfico en alta resolución.
+
+Los gráficos se exportan a la carpeta `../E03` con nombres descriptivos.
 
 ---
 
